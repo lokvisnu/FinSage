@@ -1,36 +1,148 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💰 Personal Finance Advisor
 
-## Getting Started
+A comprehensive personal finance management application built with **Next.js 15**, featuring an **AI-powered financial advisor** using Google Gemini, real-time expense tracking, asset management, and intelligent financial insights.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15.4.4-black)
+![React](https://img.shields.io/badge/React-19.1.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-blue)
+![Google Gemini](https://img.shields.io/badge/Google-Gemini-yellow)
+
+## ✨ Features
+
+### 🤖 AI Financial Advisor
+
+- **Google Gemini Integration**: Powered by Google's latest Gemini 1.5 Flash model
+- **Personalized Advice**: AI analyzes your financial data to provide tailored recommendations
+- **Rich Markdown Support**: Formatted responses with tables, lists, code blocks, and more
+- **Context-Aware**: Uses your actual spending patterns, assets, and liabilities for advice
+- **Real-time Chat**: Interactive chat interface with typing indicators
+
+### 📊 Financial Management
+
+- **Expense Tracking**: Log and categorize expenses with date tracking
+- **Asset Management**: Track investments, savings, and valuable assets by type
+- **Liability Tracking**: Monitor debts, loans, and financial obligations
+- **Category Budgeting**: Set and track budgets for expense categories
+- **Financial Overview**: Dashboard with net worth and spending insights
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Google Gemini API key
+- PostgreSQL database (Neon) or SQLite for local development
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd personal-finance
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your configuration:
+
+```env
+# Google Gemini API (Required)
+GOOGLE_GEMINI_API_KEY=your_gemini_api_key_here
+
+# Database (Optional for local dev - uses SQLite by default)
+DATABASE_URL=your_neon_database_url_here
+
+# NextAuth (Optional - auto-generated if not provided)
+NEXTAUTH_SECRET=your_secret_here
+NEXTAUTH_URL=http://localhost:3000
+```
+
+4. **Initialize the database**
+
+```bash
+# For local development (SQLite)
+npm run db:init
+
+# To reset database
+npm run db:reset
+```
+
+5. **Start the development server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗄️ Database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Local Development (SQLite)
 
-## Learn More
+- Automatically uses SQLite for local development
+- Database file: `local.db`
+- Schema: `db/schema-sqlite.sql`
 
-To learn more about Next.js, take a look at the following resources:
+### Production (Neon PostgreSQL)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Uses Neon serverless PostgreSQL for production
+- Schema: `db/schema.sql`
+- Automatic connection pooling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Deployment
 
-## Deploy on Vercel
+### Vercel (Recommended)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Install Vercel CLI**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install -g vercel
+```
+
+2. **Deploy**
+
+```bash
+npm run deploy
+# or
+vercel --prod
+```
+
+3. **Configure Environment Variables**
+   In your Vercel dashboard, add:
+
+- `GOOGLE_GEMINI_API_KEY`
+- `DATABASE_URL` (Neon PostgreSQL)
+- `JWT_SECRET`
+
+## 🔧 Configuration
+
+### AI Configuration
+
+Customize AI behavior in `src/app/api/advisor/route.ts`:
+
+```typescript
+const config = {
+  temperature: 0.7, // Creativity (0-1)
+  topK: 40, // Token sampling
+  topP: 0.9, // Nucleus sampling
+  maxOutputTokens: 1000, // Response length
+};
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
