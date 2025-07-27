@@ -1,5 +1,7 @@
 // Database configuration that supports both SQLite (local dev) and Neon (production)
 
+import { convertToNeonCompatibleQuery } from "./neon";
+
 let dbInstance: any = null;
 
 // SQLite configuration for local development (dev dependencies only)
@@ -66,7 +68,7 @@ function createNeonConnection() {
     });
 
     return {
-      query: (text: string, params?: any[]) => pool.query(text, params),
+      query: (text: string, params?: any[]) => pool.query(convertToNeonCompatibleQuery(text), params),
       close: () => pool.end(),
     };
   } catch (error) {

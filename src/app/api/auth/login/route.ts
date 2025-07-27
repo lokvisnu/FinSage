@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       "SELECT * FROM users WHERE email = ?",
       [email.toLowerCase()]
     );
-    if (result.rows.length === 0) {
+    if (!result?.rows?.length) {
       return NextResponse.json(
         { error: "Invalid email or password" },
         { status: 401 }

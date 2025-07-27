@@ -15,7 +15,6 @@ export default function SignupPage() {
     email: "",
     password: "",
     confirmPassword: "",
-    agreeTerms: false,
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -48,8 +47,6 @@ export default function SignupPage() {
       newErrors.password = "Password must be at least 6 characters";
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords don't match";
-    if (!formData.agreeTerms)
-      newErrors.agreeTerms = "You must agree to the terms";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

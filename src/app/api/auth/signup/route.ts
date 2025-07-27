@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       [email.toLowerCase()]
     );
 
-    if (existingUser.rows.length > 0) {
+    if (existingUser?.rows?.length > 0) {
       return NextResponse.json(
         { error: "User with this email already exists" },
         { status: 409 }
@@ -85,7 +85,10 @@ export async function POST(req: NextRequest) {
        RETURNING id, email, first_name, last_name, created_at`,
       [email.toLowerCase(), hashedPassword, firstName || null, lastName || null]
     );
-    const signed_user = await query("SELECT * FROM users WHERE email = ?",[email.toLowerCase()])
+    let signed_user = result?.rows[0];
+    if(signed_user)
+      signed_user = await query("SELECT * FROM users WHERE email = ?",[email.toLowerCase()])
+    
     const user = signed_user.rows[0];
     const token = await createToken(user.id);
 
